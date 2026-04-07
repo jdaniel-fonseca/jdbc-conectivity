@@ -37,8 +37,11 @@ public class Main {
         catch (SQLException e) {
             e.printStackTrace();
         }
-
-
-
+        finally {
+            //Fechando o statment, o resultSet e o banco
+            DB.closeStatment(st);
+            DB.closeResultSet(rs);
+            DB.close();
+        }
     }
 }
