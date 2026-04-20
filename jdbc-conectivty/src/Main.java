@@ -10,26 +10,22 @@ public class Main {
 
         try {
             conn = DB.open();
-
             st = conn.prepareStatement(
-                    "UPDATE seller "
-                    + "SET BaseSalary = BaseSalary + ? "
-                    + "WHERE "
-                    + "(DepartmentID = ?)");
-
-            st.setDouble(1, 200);
-            st.setInt(2, 2);
+                    "DELETE FROM department "
+                    + "WHERE Id = ?");
+            st.setInt(1, 4);
 
             int rowsAffected = st.executeUpdate();
-            System.out.println("Done! rows affected: " + rowsAffected);
+            System.out.println("Linhas afetadas = " + rowsAffected);
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            throw new DBIntegrityException(e.getMessage());
         }
         finally {
-            DB.close();
             DB.closeStatment(st);
+            DB.close();
         }
+
 
     }
 }
